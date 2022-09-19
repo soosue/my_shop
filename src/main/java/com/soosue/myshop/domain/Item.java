@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -23,6 +26,9 @@ public class Item {
     @ManyToOne
     private Menu menu;
 
+    @OneToMany
+    private List<OptionGroup> optionGroups = new ArrayList<>();
+
     public Item() {
     }
 
@@ -34,5 +40,14 @@ public class Item {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    public void addOptionGroup(OptionGroup optionGroup) {
+        optionGroup.setItem(this);
+        this.optionGroups.add(optionGroup);
+    }
+
+    public boolean hasOptionGroup(OptionGroup optionGroup) {
+        return optionGroups.contains(optionGroup);
     }
 }
