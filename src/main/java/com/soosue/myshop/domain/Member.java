@@ -19,12 +19,20 @@ public class Member {
     }
 
     public Member(String name) {
-        this(null, name, Boolean.FALSE);
+        this(name, Boolean.FALSE);
+    }
+
+    public Member(String name, Boolean isShopOwner) {
+        this(null, name, isShopOwner);
     }
 
     public Member(Long id, String name, Boolean isShopOwner) {
         this.id = id;
         this.name = name;
         this.isShopOwner = isShopOwner;
+    }
+
+    public boolean isShopOwner() {
+        return isShopOwner;
     }
 }
