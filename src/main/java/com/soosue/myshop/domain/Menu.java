@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Menu {
@@ -17,6 +20,9 @@ public class Menu {
     @ManyToOne
     private Shop shop;
 
+    @OneToMany
+    private List<Item> items = new ArrayList<>();
+
     public Menu() {
     }
 
@@ -26,5 +32,14 @@ public class Menu {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public void addItem(Item item) {
+        item.setMenu(this);
+        items.add(item);
+    }
+
+    public boolean hasItem(Item item) {
+        return items.contains(item);
     }
 }
