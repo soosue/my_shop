@@ -7,46 +7,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class OptionGroup {
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
+    private Long price;
+
     @ManyToOne
-    private Item item;
+    private OptionGroup optionGroup;
 
-    @OneToMany
-    private List<Option> options = new ArrayList<>();
-
-    public OptionGroup() {
+    public Option() {
     }
 
-    public OptionGroup(String name) {
+    public Option(String name) {
+        this(name, 0L);
+    }
+
+    public Option(String name, Long price) {
         validate(name);
         this.name = name;
+        this.price = price;
     }
 
     private void validate(String name) {
         Assert.notNull(name, "option group name cannot be null.");
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public void addOption(Option option) {
-        option.setOptionGroup(this);
-        options.add(option);
-    }
-
-    public boolean hasOption(Option option) {
-        return options.contains(option);
+    public void setOptionGroup(OptionGroup optionGroup) {
+        this.optionGroup = optionGroup;
     }
 }
